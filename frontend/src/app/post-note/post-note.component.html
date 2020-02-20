@@ -1,0 +1,11 @@
+<p>post note here!</p>
+<div>
+	<mat-form-field appearance="fill">
+    	<mat-label>Note</mat-label>
+    	<textarea matInput placeholder="write down your thought!" [formControl]="noteControl"></textarea>
+    	<mat-error *ngIf="noteControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    	<button mat-raised-button color="primary" (click)="onSubmit()">Post</button>
+
+	</mat-form-field>
+</div>
