@@ -8,7 +8,9 @@ from website import views
 urlpatterns = [ 
     url(r'^login/$', views.login),
     url(r'^users/register/$', views.register),
+    url(r'^users/(?P<id>[a-zA-Z0-9]+)$', views.get_user),
     url(r'^tags/$', views.list_tags),
+    url(r'^tags/(?P<id>[0-9]+)$', views.get_tag),
     url(r'^notes/(?P<tag>[0-9]+)$', views.list_notes),
     url(r'^notes/$', views.post_notes),
     url(r'^admin/', admin.site.urls),

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { first, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { User, Note } from '../models';
+import { User, Note, Tag } from '../models';
 import { AuthenticationService, UserService} from '../services';
 
 
@@ -15,7 +15,7 @@ import { AuthenticationService, UserService} from '../services';
 })
 export class MainpageComponent implements OnInit {
 
-  private tag: string;
+  private tag: Tag;
   private currentUser: User;
   private notes: Note[];
 
@@ -30,15 +30,17 @@ export class MainpageComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.currentUser)
 
   	this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
         of(params.get('tag'))
     )).subscribe(tag_id => {
-      this.tag_id = tag_id;
-      this.getNotesByTag(+this.tag_id);
-    })
+      this.userService.getTagById(+tag_id)
+        .subscribe(tag => {
+          this.tag = tag;
+        })
+      this.getNotesByTag(+tag_id);
+    });
     
 
   }
@@ -46,7 +48,6 @@ export class MainpageComponent implements OnInit {
   getNotesByTag(tag_id: number) {
     this.userService.getNotesByTag(tag_id).subscribe(
       data => {
-        console.log(data);
         this.notes = data;
       },
       error => {

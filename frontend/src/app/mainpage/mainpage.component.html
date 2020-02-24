@@ -1,7 +1,7 @@
 
 <h1>MainPage</h1>
-<div *ngIf="currentUser && tag_id">
-	<post-note [user_id]="currentUser.user_id" [tag_id]="tag_id"></post-note>
+<div *ngIf="currentUser && tag">
+	<post-note [user_id]="currentUser.user_id" [tag_id]="tag.id"></post-note>
 </div>
 <div *ngFor="let note of notes">
 	<note [note]= note></note>

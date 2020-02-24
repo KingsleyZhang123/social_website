@@ -95,6 +95,17 @@ def login(request):
 
 
 @csrf_exempt
+def get_user(request, id):
+    try: 
+        user = User.objects.get(pk=id) 
+    except User.DoesNotExist: 
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+    user_serializer = UserSerializer(user)
+    return JsonResponse(user_serializer.data, safe=False)
+
+
+
+@csrf_exempt
 def list_tags(request):
     if request.method == 'GET':
         tags = Tag.objects.all()
@@ -102,12 +113,23 @@ def list_tags(request):
         print(tags_serializer.data)
         return JsonResponse(tags_serializer.data, safe=False)
 
+@csrf_exempt
+def get_tag(request, id):
+    try: 
+        tag = Tag.objects.get(pk=id) 
+    except Tag.DoesNotExist: 
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+    tag_serializer = TagSerializer(tag)
+    return JsonResponse(tag_serializer.data, safe=False)
+
+
 
 @csrf_exempt
 def list_notes(request, tag):
     print('Hello {}'.format(tag))
     if request.method == 'GET':
         notes = Note.objects.filter(tag_id=tag)
+        print(notes)
         notes_serializer = NoteSerializer(notes, many=True)
         return JsonResponse(notes_serializer.data, safe=False)
 
