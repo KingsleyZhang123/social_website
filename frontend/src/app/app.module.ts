@@ -25,13 +25,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { NoteComponent } from './note/note.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { PostNoteComponent } from './post-note/post-note.component';
-import { SearchComponent } from './search/search.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SearchNoteComponent } from './search-note/search-note.component';
 
 @NgModule({
     imports: [
-
         ReactiveFormsModule,
         HttpClientModule,
         MatFormFieldModule,
@@ -55,9 +53,9 @@ import { SearchNoteComponent } from './search-note/search-note.component';
         NoteComponent,
         MainpageComponent,
         PostNoteComponent,
-        SearchComponent,
         EditProfileComponent,
         SearchNoteComponent,
+        SessionExpiredDialog,
     ],
     entryComponents: [SessionExpiredDialog],
     providers: [BnNgIdleService],

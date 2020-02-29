@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 
@@ -20,12 +20,10 @@ export class AppComponent {
         public dialog: MatDialog
     ) {
 
-        this.bnIdle.startWatching(5)
+        this.bnIdle.startWatching(300)
             .subscribe((res) => {
                 if (res && this.isOnline()) {
-                    console.log("session expired");
                     this.openDialog();
-                    this.authenticationService.logout();
                 }
             });
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -46,11 +44,14 @@ export class AppComponent {
 
     openDialog() {
         const dialogRef = this.dialog.open(SessionExpiredDialog, {
-          width: '250px'
+          width: '250px',
+          data: this.currentUser
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result == "no") {
+          this.authenticationService.logout();
+      }
     });
     }
 }
@@ -63,10 +64,16 @@ export class AppComponent {
 })
 export class SessionExpiredDialog {
 
-  constructor(public dialogRef: MatDialogRef<SessionExpiredDialog>) {}
+  constructor(
+      public dialogRef: MatDialogRef<SessionExpiredDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: User) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('no');
+  }
+
+  onYesClick(): void {
+      this.dialogRef.close('yes');
   }
 
 }
