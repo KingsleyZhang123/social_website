@@ -100,7 +100,7 @@ def get_user(request, id):
         user = User.objects.get(pk=id) 
     except User.DoesNotExist: 
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
-    user_serializer = UserSerializer(user)
+    user_serializer = UserSerializer(userç)
     return JsonResponse(user_serializer.data, safe=False)
 
 
