@@ -1,27 +1,43 @@
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-    <div *ngIf="isOnline()">
-        <a class="nav-item nav-link">Hello, {{currentUser.name}} </a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-    </div>
-    <div *ngIf="!isOnline()">
-         <a class="nav-item nav-link" (click)="login()">Login</a>
-    </div>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <div class="form-inline pull-xs-right">
+      
+        <a *ngIf="isOnline()" class="nav-item nav-link">
+            Hello, {{currentUser.name}} 
+        </a>
+        <a *ngIf="isOnline()" class="btn btn-outline-success" (click)="logout()">Logout</a>
+        
+      
+    <button *ngIf="!isOnline()" class="btn btn-outline-success" (click)="login()">Login/Signup</button>
+      
+  </div>
+  </div>
 </nav>
+
+  <div class="form-inline search-note">
+    <search-note></search-note>      
+  </div>
+
 <!-- main app container -->
 <div class="jumbotron">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 offset-sm-3">
-                <alert></alert>
-                <router-outlet></router-outlet>
-            </div>
-        </div>
+        <alert></alert>
+        <router-outlet></router-outlet>
     </div>
 </div>
+
+           
 
 <!-- credits -->
 <div class="text-center">

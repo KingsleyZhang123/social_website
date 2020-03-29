@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -27,9 +27,11 @@ import { MainpageComponent } from './mainpage/mainpage.component';
 import { PostNoteComponent } from './post-note/post-note.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SearchNoteComponent } from './search-note/search-note.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
     imports: [
+        FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         MatFormFieldModule,
@@ -56,6 +58,7 @@ import { SearchNoteComponent } from './search-note/search-note.component';
         EditProfileComponent,
         SearchNoteComponent,
         SessionExpiredDialog,
+        SearchResultComponent,
     ],
     entryComponents: [SessionExpiredDialog],
     providers: [BnNgIdleService],

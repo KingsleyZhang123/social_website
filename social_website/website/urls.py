@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^tags/$', views.list_tags),
     url(r'^tags/(?P<id>[0-9]+)$', views.get_tag),
     url(r'^notes/(?P<tag>[0-9]+)$', views.list_notes),
-    url(r'^notes/$', views.post_notes),
+    url(r'^notes/post/$', views.post_notes),
+    url(r'^notes/comment/$', views.post_comments),
+    url(r'^comments/(?P<note_id>[0-9]+)$', views.list_comments),
+    url(r'^search/(?P<search_content>[a-zA-Z0-9]+)$', views.search_notes),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

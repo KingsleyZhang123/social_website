@@ -1,20 +1,29 @@
-<div *ngIf="user">
-<div class="timeline-TweetList-tweet">
-    <div class="timeline-Tweet">
-      <div class="timeline-Tweet-brand">
-        <div class="Icon Icon--twitter"></div>
+<div *ngIf="user" class="note">
+<div class="media">
+  <img class="mr-3" src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lebron_wizards_2017_%28cropped%29.jpg" alt="Generic placeholder image">
+  <div class="media-body">
+    <h5>{{user.name}}</h5>
+    <div>{{note.content}}</div>
+    <br>
+      <span class="material-icons Icon">favorite</span>
+      <span class="material-icons Icon" data-toggle="collapse" [attr.data-target]="'#comment' + note.id" aria-expanded="false" [attr.aria-controls]="'comment'+note.id">comment</span>
+    <div *ngFor="let comment of comments">
+    <div class="media mt-3">
+      <a class="pr-3" href="#">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lebron_wizards_2017_%28cropped%29.jpg" alt="Generic placeholder image" alt="Generic placeholder image">
+      </a>
+      <div class="media-body">
+        <h5 class="mt-0">{{comment.user_id}}</h5>
+        {{comment.content}}
       </div>
-      <div class="timeline-Tweet-author">
-        <div class="TweetAuthor"><a class="TweetAuthor-link" href="#channel"> </a><span class="TweetAuthor-avatar"> 
-            <div class="Avatar"> </div></span>
-            <span class="TweetAuthor-name" id="homepage" (click)="gotoProfile()">{{user.name}} </span><span class="Icon Icon--verified"> </span><span class="TweetAuthor-screenName">{{user.user_id}}</span></div>
-      </div>
-      <div class="timeline-Tweet-text">{{note.content}}</div>
-      <div class="timeline-Tweet-metadata"></div>
-      <ul class="timeline-Tweet-actions">
-        <li class="timeline-Tweet-action"><a class="Icon Icon--heart" href="#"></a></li>
-        <li class="timeline-Tweet-action"><a class="Icon Icon--share" href="#"></a></li>
-      </ul>
     </div>
+  </div>
+</div>
+</div>
+<div class="collapse" [attr.id]="'comment'+note.id">
+  <form (ngSubmit)="postComment()">    
+      <textarea [formControl]="commentContent" class="form-control" rows="3" placeholder="Say something..."></textarea>
+      <button class="btn btn-outline-success my-2 my-sm-2" type="submit" >Comment</button>
+  </form>
   </div>
 </div>

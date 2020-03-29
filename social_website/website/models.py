@@ -45,7 +45,6 @@ class Note(models.Model):
 class Comment(models.Model):
     note_id = models.ForeignKey(Note, on_delete=models.CASCADE)
     user_id = models.ForeignKey(UserAuth, on_delete=models.CASCADE)
-    replyto = models.ForeignKey('self', on_delete=models.CASCADE)
     content = models.CharField(max_length=50)
     post_time = models.DateTimeField()
 

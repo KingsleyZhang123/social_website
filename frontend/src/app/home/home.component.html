@@ -1,5 +1,5 @@
-<mat-grid-list cols="12" rowHeight="400px">
-  <mat-grid-tile *ngFor="let tag of tags" colspan='4'>
+<mat-grid-list cols="12" rowHeight="500px">
+  <mat-grid-tile *ngFor="let tag of tags" colspan='4' class="card">
     <app-card [tag]=tag> </app-card>
   </mat-grid-tile>
 </mat-grid-list>

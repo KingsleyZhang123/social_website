@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User, Note, Tag } from '../models';
+import { User, Note, Tag, Comment } from '../models';
 
 import {baseUrl} from './url';
 
@@ -29,8 +29,20 @@ export class UserService {
         return this.http.get<User>(`${baseUrl}/users/${id}`);
     }
 
+    getCommentsByNoteId(note_id: number) {
+        return this.http.get<Comment[]>(`${baseUrl}/comments/${note_id}`);
+    }
+
     postNote(note: Note) {
-    	return this.http.post(`${baseUrl}/notes/post/`, note)
+    	return this.http.post(`${baseUrl}/notes/post/`, note);
+    }
+
+    postComment(comment: Comment) {
+        return this.http.post(`${baseUrl}/notes/comment/`, comment);
+    }
+
+    searchNotes(searchContent: string) {
+        return this.http.get<Note[]>(`${baseUrl}/search/${searchContent}`);
     }
 
     delete(id: number) {

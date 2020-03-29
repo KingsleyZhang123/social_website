@@ -41,7 +41,6 @@ class CommentSerializer(serializers.ModelSerializer):
 				  'content',
 				  'post_time',
 				  'note_id',
-				  'replyto_id',
 				  'user_id',
 				 )
 

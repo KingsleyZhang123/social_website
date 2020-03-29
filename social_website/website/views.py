@@ -100,7 +100,7 @@ def get_user(request, id):
         user = User.objects.get(pk=id) 
     except User.DoesNotExist: 
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
-    user_serializer = UserSerializer(userç)
+    user_serializer = UserSerializer(user)
     return JsonResponse(user_serializer.data, safe=False)
 
 
@@ -135,6 +135,13 @@ def list_notes(request, tag):
 
 
 @csrf_exempt
+def list_comments(request, note_id):
+    comments = Comment.objects.filter(note_id=note_id)
+    comments_serializer = CommentSerializer(comments, many=True)
+    return JsonResponse(comments_serializer.data, safe=False)
+
+
+@csrf_exempt
 def post_notes(request):
     note_data = JSONParser().parse(request)
     note_serializer = NoteSerializer(data=note_data)
@@ -144,4 +151,17 @@ def post_notes(request):
     return JsonResponse(note_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    
+@csrf_exempt
+def post_comments(request):
+    comment_data = JSONParser().parse(request)
+    comment_serializer = CommentSerializer(data=comment_data)
+    if comment_serializer.is_valid():
+        comment_serializer.save()
+        return JsonResponse(comment_serializer.data, status=status.HTTP_201_CREATED)
+    return JsonResponse(note_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def search_notes(request, search_content):
+    notes = Note.objects.filter(content__icontains=search_content)
+    notes_serializer = NoteSerializer(notes, many=True)
+    return JsonResponse(notes_serializer.data, safe=False)
