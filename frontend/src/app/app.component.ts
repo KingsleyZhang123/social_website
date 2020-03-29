@@ -50,7 +50,9 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == "no") {
-          this.authenticationService.logout();
+          this.logout();
+      } else {
+        this.bnIdle.resetTimer();
       }
     });
     }
