@@ -4,14 +4,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
+
+import { User } from '../models';
 
 import { AlertService, UserService, AuthenticationService } from '../services';
+
+
 
 @Component({ 
     templateUrl: 'register.component.html',
     styleUrls: ['./register.component.css'] })
 export class RegisterComponent implements OnInit {
-    registerForm: FormGroup;
+    idFormGroup: FormGroup;
+    nameFormGroup: FormGroup;
+    passwordFormGroup: FormGroup;
+    genderFormGroup: FormGroup;
+    departmentFormGroup: FormGroup;
     loading = false;
     submitted = false;
 
@@ -29,32 +38,37 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerForm = this.formBuilder.group({
-            user_id: ['', Validators.required],
-            name: ['', Validators.required],
-            gender: ['', Validators.required],
-            department: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+        this.idFormGroup = this.formBuilder.group({
+            idCtrl: ['', Validators.required]
+        });
+        this.nameFormGroup = this.formBuilder.group({
+            lastNameCtrl: ['', Validators.required],
+            firstNameCtrl: ['', Validators.required]
+        });
+        this.genderFormGroup = this.formBuilder.group({
+            genderCtrl: ['', Validators.required]
+        });
+        this.departmentFormGroup = this.formBuilder.group({
+            departmentCtrl: ['', Validators.required]
+        });
+        this.passwordFormGroup = this.formBuilder.group({
+            passwordCtrl: ['', [Validators.required, Validators.min(6)]]
         });
 
     }
 
-    // convenience getter for easy access to form fields
-    get f() { return this.registerForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
+        
+        var registrationInfo = new User(
+            this.idFormGroup.value['idCtrl'],
+            this.nameFormGroup.value['firstNameCtrl'] + " " + this.nameFormGroup.value['lastNameCtrl'],
+            this.passwordFormGroup.value['passwordCtrl'],
+            this.genderFormGroup.value['genderCtrl'],
+            this.departmentFormGroup.value['departmentCtrl']);
 
-        // reset alerts on submit
-        this.alertService.clear();
 
-        // stop here if form is invalid
-        if (this.registerForm.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.userService.register(this.registerForm.value)
+        this.userService.register(registrationInfo)
             .pipe(first())
             .subscribe(
                 data => {

@@ -27,7 +27,7 @@ class User(models.Model):
     name = models.CharField(max_length=70)
     gender = models.CharField(max_length=1, choices=GENDER)
     department = models.CharField(max_length=50)
-
+    avatar = models.ImageField(upload_to='image/avatar', null=True)
     class Meta:
         db_table = 'Users'
   

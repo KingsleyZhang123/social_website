@@ -49,6 +49,7 @@ export class MainpageComponent implements OnInit {
     this.userService.getNotesByTag(tag_id).subscribe(
       data => {
         this.notes = data;
+        this.notes.sort((a, b) => a.post_time > b.post_time ? -1 : 1);
       },
       error => {
         console.log(error);

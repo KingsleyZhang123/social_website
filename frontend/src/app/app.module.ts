@@ -11,6 +11,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { appRoutingModule } from './app.routing.module';
 
@@ -41,6 +44,8 @@ import { SearchResultComponent } from './search-result/search-result.component';
         MatGridListModule,
         MatInputModule,
         MatDialogModule,
+        MatStepperModule,
+        MatSelectModule,
         appRoutingModule,
         BrowserAnimationsModule
     ],

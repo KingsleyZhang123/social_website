@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
                   'name',
                   'gender',
                   'department',
+                  'avatar',
                   )
 
 

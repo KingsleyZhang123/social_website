@@ -1,11 +1,8 @@
 
 <div>
-	<mat-form-field appearance="fill">
-    	<mat-label>Note</mat-label>
-    	<textarea matInput placeholder="write down your thought!" [formControl]="noteControl"></textarea>
-    	<mat-error *ngIf="noteControl.invalid">{{getErrorMessage()}}</mat-error>
+	<form (ngSubmit)="postNote()">    
+      	<textarea [formControl]="noteControl" class="form-control" rows="5" placeholder="Say something..."></textarea>
+      	<button class="btn btn-outline-success my-2 my-sm-2" type="submit" >Post</button>
+  	</form>
 
-    	<button mat-raised-button color="primary" (click)="onSubmit()">Post</button>
-
-	</mat-form-field>
 </div>

@@ -56,6 +56,10 @@ export class AppComponent {
       }
     });
     }
+
+    gotoProfile() {
+      this.router.navigate([`/profile/${this.currentUser.user_id}`]);
+    }
 }
 
 

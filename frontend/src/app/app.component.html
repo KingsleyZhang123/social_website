@@ -13,7 +13,7 @@
     </ul>
     <div class="form-inline pull-xs-right">
       
-        <a *ngIf="isOnline()" class="nav-item nav-link">
+        <a *ngIf="isOnline()" class="nav-item nav-link" (click)="gotoProfile()" id='navbar-user'>
             Hello, {{currentUser.name}} 
         </a>
         <a *ngIf="isOnline()" class="btn btn-outline-success" (click)="logout()">Logout</a>

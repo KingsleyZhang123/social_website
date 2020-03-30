@@ -77,9 +77,10 @@ body {
   width: 64px;
   height: 64px;
 }
-.note-display{
-}
 
+#navbar-user:hover {
+  cursor: pointer;
+}
 
 .tw-block-parent {
   width: 500px;

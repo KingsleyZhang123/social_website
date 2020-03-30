@@ -39,10 +39,10 @@ export class SearchResultComponent implements OnInit {
       	this.userService.searchNotes(searchContent)
         	.subscribe(notes => {
           	this.notes = notes;
+          	this.notes.sort((a, b) => a.post_time > b.post_time ? -1 : 1);
         })
     });
     
-
   }
 
 

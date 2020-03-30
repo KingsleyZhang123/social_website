@@ -42,8 +42,8 @@ export class NoteComponent implements OnInit {
       });
   }
 
-  gotoProfile() {
-  	this.router.navigate([`/profile/${this.user.user_id}`]);
+  gotoProfile(user_id:string) {
+  	this.router.navigate([`/profile/${user_id}`]);
   }
 
   postComment() {

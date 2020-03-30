@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,13 +22,15 @@ export class PostNoteComponent implements OnInit{
 	noteControl = new FormControl('', [Validators.required, Validators.minLength(10)]);
 
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService : UserService,
+    private location : Location,
+    private router : Router) {
   	
   }
 
   ngOnInit() {
-  	console.log(this.user_id);
-  	console.log(this.tag_id);
+
   }
 
   getErrorMessage() {
@@ -34,16 +38,20 @@ export class PostNoteComponent implements OnInit{
   		this.noteControl.hasError('minLength') ? "at least 10 words" : "";
   }
 
-  onSubmit() {
-        console.log(this.noteControl.value);
+  postNote() {
         let note = new Note(this.user_id, this.noteControl.value, new Date(), this.tag_id);
         this.userService.postNote(note).subscribe(
         	data => {
         		console.log(data);
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigateByUrl(this.location.path());
+
         	},
         	error => {
         		console.log(error);
         	})
+
 
   }
 
