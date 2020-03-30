@@ -39,6 +39,13 @@ export class NoteComponent implements OnInit {
     this.userService.getCommentsByNoteId(this.note.id)
       .subscribe(comments => {
         this.comments = comments;
+        this.comments.forEach(
+          comment => {
+            this.userService.getUserById(comment.user_id)
+            .subscribe(user => {
+              comment['name'] = user.name;
+            })
+          })
       });
   }
 
@@ -59,6 +66,34 @@ export class NoteComponent implements OnInit {
         }
         );
   }
- 
+
+  timeSince(post_time: Date) {
+    let now = new Date();
+    console.log(post_time);
+    var seconds = Math.floor((now.getTime() - new Date(post_time).getTime()) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return interval + " years";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + " months";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + " days";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + " hours";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
 
 }

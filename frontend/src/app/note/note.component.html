@@ -3,7 +3,8 @@
   <img class="mr-3" src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lebron_wizards_2017_%28cropped%29.jpg" alt="Generic placeholder image" (click)="gotoProfile(note.user_id)">
   <div class="media-body">
     <h5 (click)="gotoProfile(note.user_id)">{{user.name}}</h5>
-    <div>{{note.content}}</div>
+    <div>{{note.content}}
+    </div>
     <br>
       <span class="material-icons Icon">favorite</span>
       <span class="material-icons Icon" data-toggle="collapse" [attr.data-target]="'#comment' + note.id" aria-expanded="false" [attr.aria-controls]="'comment'+note.id">comment</span>
@@ -13,12 +14,14 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lebron_wizards_2017_%28cropped%29.jpg" alt="Generic placeholder image" alt="Generic placeholder image" (click)="gotoProfile(comment.user_id)">
       </a>
       <div class="media-body">
-        <h5 class="mt-0" (click)="gotoProfile(comment.user_id)">{{comment.user_id}}</h5>
+        <h5 class="mt-0" (click)="gotoProfile(comment.user_id)">{{comment.name}}</h5>
         {{comment.content}}
       </div>
+      <span class="time">{{timeSince(comment.post_time)}} ago</span>
     </div>
   </div>
 </div>
+ <span class="time">{{timeSince(note.post_time)}} ago</span>
 </div>
 <div class="collapse" [attr.id]="'comment'+note.id">
   <form (ngSubmit)="postComment()">    

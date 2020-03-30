@@ -5,3 +5,7 @@
 .note img:hover {
 	cursor: pointer;
 }
+
+.time {
+	color: #4B9CD3;
+}
